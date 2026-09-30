@@ -1,0 +1,195 @@
+@import url("assets/css/plugins/animate.min.css");
+@import url("assets/vendors/zangdar/zangdar.css");
+@import url("assets/vendors/mc-datepicker/mc-calendar.css");
+@import url("assets/css/daterangepicker.css");
+
+html, body { 
+    height: 100%;
+}
+
+body { 
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+/* Domain Tree */
+.sw-domain-tree{
+    position: relative;
+    overflow: hidden;
+}
+.sw-domain-tree-cats{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 3rem;
+    padding-right: 0.4rem;
+    border-bottom: rgba(26, 29, 33, 0.07) 1px solid;
+}
+.sw-domain-tree-cats span{
+    color: #1a1d21;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: .75rem .5rem
+}
+.sw-domain-tree-cats .emptyCell{
+    width: 3rem;
+}
+.sw-domain-tree ul{
+    position: relative;
+    list-style: none;
+    margin-bottom: -0.75rem;
+    margin-top: 0.75rem;
+    /*  */
+    padding-left: 0;
+}
+.sw-domain-tree ul:before{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: calc(100% + 300px);
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.025);
+}
+.sw-domain-tree ul li{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(26, 29, 33);
+    position: relative;
+    font-size: .9375rem;
+    padding: 0.75rem 0;
+    border-bottom: rgba(26, 29, 33, 0.07) 1px solid;
+}
+.sw-domain-tree ul li .sw-domain-tree-list-info{
+    position: relative;
+    z-index: 1;
+}
+.sw-domain-tree ul li .sw-domain-tree-list-info strong{
+    position: relative;
+    font-weight: 400;
+}
+.sw-domain-tree ul li .sw-domain-tree-list-info span{
+    position: relative;
+    padding: 0 0.9145rem;
+}
+.sw-domain-tree ul li .sw-domain-tree-list-info em{
+    color: rgb(26, 29, 33);
+    font-weight: 400;
+    font-style: normal;
+    position: relative;
+}
+.sw-domain-tree ul li .sw-domain-tree-list-info i{
+    font-size: 1rem;
+    position: relative;
+    margin-right: 0.2rem;
+}
+.sw-domain-tree ul li .sw-domain-tree-list-opts{
+    position: relative;
+    padding-right: 0.9145rem;
+    z-index: 1;
+}
+
+
+.sw-domain-tree ul li .caret{
+    /* position: absolute;
+    top: 0; */
+    display: inline-block;
+    padding: 0 0.8rem;
+    cursor: pointer;
+}
+
+/*  */
+.sw-domain-tree ul.sw-domain-tree-list{
+    padding-left: 0;
+    padding-top: 0;
+    background-color: #fff;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.sw-domain-tree ul.sw-domain-tree-list:before{
+    display: none;
+}
+.sw-domain-tree ul.sw-domain-tree-list > li:nth-child(odd)::before{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: calc(100% + 300px);
+    height: 100%;
+    background-color: rgba(26, 29, 33, 0.035)
+}
+.sw-domain-tree ul.sw-domain-tree-list > li:nth-child(even)::before{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: calc(100% + 300px);
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.85)
+}
+/*  */
+.sw-domain-tree ul.nested{
+    width: 100%;
+    display: none;
+}
+.sw-domain-tree ul.nested.active{
+    display: block;
+    -webkit-animation: fade-in 0.5s ease;
+    -moz-animation: fade-in 0.5s ease;
+    animation: fade-in 0.5s ease;
+}
+/*  */
+.sw-domain-tree-delete{
+    display: flex;
+    align-items: center;
+}
+.sw-domain-tree-delete span{
+    font-size: .9375rem;
+    padding: 0 0.9145rem;
+}
+.sw-domain-tree-delete-btn{
+    padding: .75rem .5rem;
+}
+
+/* Animations */
+@keyframes fade-in{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fade-in{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1
+    }
+}
+
+@-moz-keyframes fade-in{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1
+    }
+}
+
+@media (max-width: 767.98px) {
+    .sw-domain-tree ul li .sw-domain-tree-list-opts{
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        padding-left: 0.9145rem;
+        margin-top: 0.4rem;
+    }
+    .sw-domain-tree ul li .sw-domain-tree-list-opts [class*="btn"] + [class*="btn"]{
+        margin-left: 0.2rem;
+    }
+}

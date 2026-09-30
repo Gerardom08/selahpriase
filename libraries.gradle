@@ -1,0 +1,42 @@
+ext {
+    jacksonVersion = '2.18.1'
+    jsonVersion = '20240303'
+    commonsDBUtilsVersion = '1.7'
+    commonsLang3Version = 3.9
+    poiOOXmlVersion = '5.4.0'
+    tikaCoreVersion = '3.1.0'
+
+    validationVersion = '3.0.2'
+    hibernateValidatorVersion = '6.2.1.Final'
+    elVersion = '5.0.0-M1'
+
+    jhibernateValidatorVersion = '6.2.1.Final'
+    jelVersion = '3.0.1-b12'
+    jvalidationVersion = '2.0.1.Final'
+    jaxbApiVersion = '2.3.1'
+    jaxbRuntime = '2.3.1'
+
+    libraries = [
+            jackson_core        : "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
+            jackson_datatype    : "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}",
+            json                : "org.json:json:${jsonVersion}",
+            commons_dbutils     : "commons-dbutils:commons-dbutils:${commonsDBUtilsVersion}",
+            commons_lang3       : "org.apache.commons:commons-lang3:${commonsLang3Version}",
+            poi_ooxml           : "org.apache.poi:poi-ooxml:${poiOOXmlVersion}",
+            tika_core           : "org.apache.tika:tika-core:${tikaCoreVersion}",
+            jaxb_api_runtime    : [
+                    "javax.xml.bind:jaxb-api:${jaxbApiVersion}",
+                    "org.glassfish.jaxb:jaxb-runtime:${jaxbRuntime}"
+            ],
+            validation          : [
+                    "org.hibernate:hibernate-validator:${hibernateValidatorVersion}",
+                    "jakarta.validation:jakarta.validation-api:${validationVersion}",
+                    "org.glassfish:jakarta.el:${elVersion}"
+            ],
+            validation_javax    : [
+                    "org.hibernate:hibernate-validator:${jhibernateValidatorVersion}",
+                    "javax.validation:validation-api:${jvalidationVersion}",
+                    "org.glassfish:javax.el:${jelVersion}"
+            ],
+    ]
+}

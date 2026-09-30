@@ -1,0 +1,90 @@
+<ul
+  *ngIf="pages.length > 0"
+  class="pagination pagination-sm pagination-alt"
+>
+
+  <!-- Página anterior -->
+  <li
+    class="page-item"
+    *ngIf="paginator.number > 0"
+  >
+    <button
+      class="page-link"
+      type="button"
+      (click)="goPage(paginator.number - 1)"
+    >
+      &laquo;
+    </button>
+  </li>
+
+  <!-- Primera página -->
+  <li
+    [ngClass]="paginator.first ? 'disabled page-item' : 'page-item'"
+  >
+    <button
+      class="page-link"
+      type="button"
+      (click)="goPage(0)"
+    >
+      {{ 'First' | i18n }}
+    </button>
+  </li>
+
+  <!-- Números de página -->
+  <li
+    *ngFor="let page of pages"
+    [ngClass]="
+      page - 1 === paginator.number
+        ? 'page-item active text-white'
+        : 'page-item'
+    "
+  >
+
+    <!-- Página actual -->
+    <span
+      *ngIf="page - 1 === paginator.number"
+      class="page-link"
+    >
+      {{ page }}
+    </span>
+
+    <!-- Otras páginas -->
+    <button
+      *ngIf="page - 1 !== paginator.number"
+      class="page-link"
+      type="button"
+      (click)="goPage(page - 1)"
+    >
+      {{ page }}
+    </button>
+
+  </li>
+
+  <!-- Última página -->
+  <li
+    [ngClass]="paginator.last ? 'disabled page-item' : 'page-item'"
+  >
+    <button
+      class="page-link"
+      type="button"
+      (click)="goPage(paginator.totalPages - 1)"
+    >
+      {{ 'Last' | i18n }}
+    </button>
+  </li>
+
+  <!-- Página siguiente -->
+  <li
+    class="page-item"
+    *ngIf="paginator.number < paginator.totalPages - 1"
+  >
+    <button
+      class="page-link"
+      type="button"
+      (click)="goPage(paginator.number + 1)"
+    >
+      &raquo;
+    </button>
+  </li>
+
+</ul>

@@ -1,0 +1,6 @@
+include 'modules:app'
+include 'modules:db'
+include 'modules:entities'
+include 'modules:restapi'
+
+rootProject.name = 'selahpraise'

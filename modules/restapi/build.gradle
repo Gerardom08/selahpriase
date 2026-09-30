@@ -1,0 +1,28 @@
+plugins {
+    id 'org.springframework.boot' version '3.3.5'
+}
+
+dependencies {
+    api project(':modules:db')
+    api project(':modules:entities')
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.apache.commons:commons-csv:1.12.0'
+
+    implementation libraries.jackson_datatype
+    implementation libraries.poi_ooxml
+   	implementation libraries.tika_core
+   	implementation libraries.commons_lang3
+    implementation libraries.commons_dbutils
+    implementation libraries.json
+    implementation libraries.validation
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

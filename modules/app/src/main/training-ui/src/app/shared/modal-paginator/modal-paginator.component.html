@@ -1,0 +1,97 @@
+<div id="selectPaginatorModal" class="modal fade" tabindex="-1" aria-labelledby="selectPaginatorModal"
+    aria-hidden="true" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-xl modal-xl" role="document">
+        <div class="modal-content modal-content-xl">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    @if(option==3){
+                            {{ 'Security.role' |i18n}}
+                    }
+                </h5>
+            </div>
+            <div class="modal-body padding-top-0 padding-bottom-0 px-5">
+                <form [formGroup]="forms">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-5">
+                                <label class="col-sm-4 col-form-label form-label">
+                                    {{'Search'|i18n}}
+                                </label>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <input type="text" name="search" class="form-control"
+                                            formControlName="search" placeholder="{{'Search'|i18n}}">
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-primary" (click)="onSearch()">
+                                            {{'Search'|i18n}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table table-responsive">
+                                @if (option == 1){
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">{{'Name'|i18n }}</th>
+                                                <th scope="col">{{'Select'|i18n}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (data.length>0) {
+                                                @for (profile of data; track $index) {
+                                                    <tr>
+                                                        <td>{{$index +1}}</td>
+                                                        <td>{{profile.profileName}}</td>
+                                                        <td>
+                                                            <input class="check form-check-input" type="checkbox" value=""
+                                                            id="check-{{$index}}" (click)="objectSelected(profile,$index)">
+                                                        <label class="form-check-label" for="check-{{$index}}">
+                                                        </label>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }@else {
+                                                <tr>
+                                                    <td class="alert alert-info text-center" colspan="12">
+                                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                        {{'No.records.table'|i18n}}.
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+                        </div>
+                        @if(data.length>0){
+                        <div class="col-md-12">
+                            <legend></legend>
+                            <div class="pull-left">
+                                <h5 class="font-italic font-weight-bold text-info">
+                                    {{'Total.pages'|i18n}}: {{ paginator.totalPages }}
+                                </h5>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <app-paginator *ngIf="paginator" [paginator]="paginator"
+                                    (page)="goPage($event)"></app-paginator>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="onOkPaginator()">
+                        {{'Accept'}}
+                    </button>
+                    <button type="button" class="btn btn-danger" (click)="closeModal()">
+                        {{'Cancel'}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-spinner />

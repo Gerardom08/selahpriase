@@ -1,0 +1,30 @@
+<!-- <div class="pull-left">
+  <h5 class="font-italic font-weight-bold text-info">
+    Total de Registros: {{ paginator.totalElements }} &nbsp;&nbsp;&nbsp;
+  </h5>
+</div> -->
+<ul *ngIf="pages.length>0" class="pagination">
+  <li class="page-item" *ngIf="paginator.number > 0">
+    <button class="page-link" (click)="goPage(paginator.number-1)">&laquo;</button>
+  </li>
+
+  <li [ngClass]="paginator.first? 'disabled page-item':'page-item'">
+    <!-- <button class="page-link" (click)="goPage(0)">{{'Firts.page' | i18n}}</button> -->
+    <button class="page-link" (click)="goPage(0)">{{'Firts.page'}}</button>
+  </li>
+
+  <li [ngClass]="page-1 === paginator.number?'page-item active text-white':'page-item'" *ngFor="let page of pages">
+    <span *ngIf="page-1 === paginator.number" class="page-link">{{ page }}</span>
+    <button *ngIf="page-1 !== paginator.number" class="page-link" type="button" (click)="goPage(page-1)">{{ page
+      }}</button>
+  </li>
+
+  <li [ngClass]="paginator.last? 'disabled page-item':'page-item'">
+    <!-- <button class="page-link" (click)="goPage(paginator.totalPages-1)">{{'Last.page' | i18n}}</button> -->
+    <button class="page-link" (click)="goPage(paginator.totalPages-1)">{{'Last.page'}}</button>
+  </li>
+
+  <li class="page-item" *ngIf="paginator.number < paginator.totalPages-1">
+    <button class="page-link" (click)="goPage(paginator.number+1)">&raquo;</button>
+  </li>
+</ul>

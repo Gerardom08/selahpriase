@@ -1,0 +1,11 @@
+<div class="input-group mb-3">
+    <input id="_dm-mcDatepicker-method" type="text" [value]="value"
+        class="form-control" placeholder="DD/MM/AAAA" readonly
+        autocomplete="off" [class.is-invalid]="invalid">
+    <button id="_dm-mcDatepicker-btn" class="btn btn-primary"
+        type="button">
+        <i class="fa fa-calendar fs-5"></i>
+    </button>
+</div>
+
+<div class="datepicker-backdrop" *ngIf="isDatepickerOpen" (click)="closeDatepicker()"></div>

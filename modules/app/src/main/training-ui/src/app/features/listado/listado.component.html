@@ -1,0 +1,405 @@
+<div class="content__boxed">
+
+  <div class="content__wrap">
+
+    <div class="card">
+
+      <div class="card-body">
+
+        <!-- ============================================ -->
+        <!-- ENCABEZADO -->
+        <!-- ============================================ -->
+
+        <div class="row mb-4">
+
+          <div class="col-md-12">
+
+            <h4 class="card-title">
+              {{ "Listado.songs" | i18n }}
+            </h4>
+
+            <p class="text-muted mb-0">
+              {{ "Listado.description" | i18n }}
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ============================================ -->
+        <!-- BUSCADOR -->
+        <!-- ============================================ -->
+
+        <div class="row mb-4">
+
+          <div class="col-lg-7">
+
+            <label
+              for="tituloBusqueda"
+              class="form-label">
+
+              {{ "Search" | i18n }}
+
+            </label>
+
+            <div class="input-group">
+
+              <input
+                id="tituloBusqueda"
+                type="text"
+                class="form-control"
+                [(ngModel)]="tituloBusqueda"
+                [placeholder]="'Search.title' | i18n"
+                (keyup.enter)="buscar()"
+              />
+
+              <!-- X PARA LIMPIAR -->
+
+              <button
+                *ngIf="tituloBusqueda"
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="limpiarBusqueda()"
+                [title]="'Clear.search' | i18n">
+
+                &times;
+
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- ============================================ -->
+          <!-- BOTÓN BUSCAR -->
+          <!-- ============================================ -->
+
+          <div class="col-lg-5 d-flex flex-wrap align-items-end gap-2 mt-3 mt-lg-0">
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="buscar()">
+
+              {{ "Search" | i18n }}
+
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-primary text-nowrap"
+              (click)="agregarCancion()">
+              <i class="fa fa-plus-circle me-1" aria-hidden="true"></i>
+              {{ 'Song.add' | i18n }}
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ============================================ -->
+        <!-- CARGANDO -->
+        <!-- ============================================ -->
+
+        <div
+          *ngIf="cargando"
+          class="text-center py-4">
+
+          <div
+            class="spinner-border"
+            role="status">
+
+            <span class="visually-hidden">
+              {{ "Loading" | i18n }}
+            </span>
+
+          </div>
+
+          <p class="mt-2">
+            {{ "Loading.songs" | i18n }}
+          </p>
+
+        </div>
+
+
+        <!-- ============================================ -->
+        <!-- CONTENIDO -->
+        <!-- ============================================ -->
+
+        <div
+          class="row"
+          *ngIf="!cargando">
+
+
+          <!-- ========================================== -->
+          <!-- TABLA -->
+          <!-- ========================================== -->
+
+          <div class="table-responsive">
+
+            <table
+              class="table table-striped table-hover align-middle">
+
+              <!-- ====================================== -->
+              <!-- ENCABEZADOS -->
+              <!-- ====================================== -->
+
+              <thead>
+
+                <tr>
+
+                  <th scope="col">
+                    {{ "Titulo" | i18n }}
+                  </th>
+
+                  <th scope="col">
+                    {{ "Autor" | i18n }}
+                  </th>
+
+                  <th scope="col">
+                    {{ "Tono" | i18n }}
+                  </th>
+
+                  <th scope="col">
+                    {{ "Bpm" | i18n }}
+                  </th>
+
+                  <th scope="col">
+                    {{ "Letra.acordes" | i18n }}
+                  </th>
+
+                  <th scope="col">
+                    {{ "Youtube" | i18n }}
+                  </th>
+
+                  <th
+                    scope="col"
+                    class="sticky-actions">
+
+                    {{ "Actions.table" | i18n }}
+
+                  </th>
+
+                </tr>
+
+              </thead>
+
+
+              <!-- ====================================== -->
+              <!-- CUERPO -->
+              <!-- ====================================== -->
+
+              <tbody>
+
+
+                <!-- ==================================== -->
+                <!-- CANCIONES -->
+                <!-- ==================================== -->
+
+                <tr
+                  *ngFor="let cancion of canciones">
+
+
+                  <!-- TÍTULO -->
+
+                  <td class="verticalCenter">
+
+                    {{ cancion.titulo }}
+
+                  </td>
+
+
+                  <!-- AUTOR -->
+
+                  <td class="verticalCenter">
+
+                    {{ cancion.autor }}
+
+                  </td>
+
+
+                  <!-- TONO -->
+
+                  <td class="verticalCenter">
+
+                    {{ cancion.tono }}
+
+                  </td>
+
+
+                  <!-- BPM -->
+
+                  <td class="verticalCenter">
+
+                    {{ cancion.bpm }}
+
+                  </td>
+
+
+                  <!-- LETRA / ACORDES -->
+
+                  <td class="verticalCenter">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-primary"
+                      (click)="verCancion(cancion)">
+                      {{ 'Song.open' | i18n }}
+                    </button>
+
+                  </td>
+
+
+                  <!-- YOUTUBE -->
+
+                  <td class="verticalCenter">
+
+                    <a
+                      [href]="enlaceYoutube(cancion)"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn btn-sm btn-outline-danger"
+                      [class.disabled]="!cancion.youtubeUrl">
+
+                      {{ "Youtube" | i18n }}
+
+                    </a>
+
+                  </td>
+
+
+                  <!-- ACCIONES -->
+
+                  <td
+                    class="verticalCenter sticky-actions">
+
+                    <div class="d-flex gap-2">
+
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-primary"
+                        (click)="editarCancion(cancion)">
+
+                        {{ "Edit" | i18n }}
+
+                      </button>
+
+
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-danger"
+                        (click)="deleteCancion(cancion.idCancion)">
+
+                        {{ "Delete" | i18n }}
+
+                      </button>
+
+                    </div>
+
+                  </td>
+
+                </tr>
+
+
+                <!-- ==================================== -->
+                <!-- SIN REGISTROS -->
+                <!-- ==================================== -->
+
+                <tr
+                  *ngIf="canciones.length === 0">
+
+                  <td
+                    colspan="7"
+                    class="text-center py-4">
+
+                    {{ "No.records" | i18n }}
+
+                  </td>
+
+                </tr>
+
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <!-- ============================================ -->
+          <!-- INFORMACIÓN DE PAGINACIÓN -->
+          <!-- ============================================ -->
+
+          <div
+            *ngIf="paginator && paginator.totalElements > 0"
+            class="d-flex justify-content-between align-items-center mt-3">
+
+
+            <!-- ======================================== -->
+            <!-- PÁGINA ACTUAL -->
+            <!-- ======================================== -->
+
+            <div class="text-muted">
+
+              {{ "Page" | i18n }}
+
+              {{ paginator.number + 1 }}
+
+              {{ "Of" | i18n }}
+
+              {{ paginator.totalPages }}
+
+            </div>
+
+
+            <!-- ======================================== -->
+            <!-- TOTAL DE REGISTROS -->
+            <!-- ======================================== -->
+
+            <div class="text-muted">
+
+              {{ "Total.records" | i18n }}:
+
+              {{ paginator.totalElements }}
+
+            </div>
+
+
+          </div>
+
+
+          <!-- ============================================ -->
+          <!-- PAGINADOR -->
+          <!-- ============================================ -->
+
+          <div
+            *ngIf="paginator && paginator.totalPages > 1"
+            class="d-flex justify-content-center mt-3">
+
+            <app-paginator
+              [paginator]="paginator"
+              (page)="getCanciones($event)">
+            </app-paginator>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<app-add-cancion-modal
+  [visible]="modalVisible"
+  [mode]="modalMode"
+  [cancion]="modalCancion"
+  (closed)="cerrarCancionModal()"
+  (saved)="cancionGuardada()">
+</app-add-cancion-modal>

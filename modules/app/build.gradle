@@ -1,0 +1,47 @@
+plugins {
+    id "com.github.node-gradle.node" version "7.0.2"
+}
+
+apply plugin: 'com.github.node-gradle.node'
+
+project.ext {
+    def target = project.hasProperty('target') ? target : 'developer'
+    println "::: Current Environment: <<$target>>"
+
+    if (!['production', 'developer', 'staging'].contains(target)) {
+        println "::: Invalid Environment: <<$target>> using default <<developer>>"
+        target = 'developer'
+    }
+
+    switch (target) {
+        case "developer":
+            appEnvironment = "build"
+            break
+        case "staging":
+            appEnvironment = "build:staging"
+            break
+        default:
+            appEnvironment = "build"
+            break
+    }
+
+    println "::: Script: ${appEnvironment}"
+}
+
+node {
+    version = '22.9.0'
+    npmVersion = ''
+    download = true
+    workDir = file("${project.buildDir}/node")
+    nodeProjectDir = file("${project.projectDir}/src/main/training-ui")
+}
+
+task buildAngular(type: NpmTask) {
+    dependsOn(npm_install)
+    args = ['run', appEnvironment]
+}
+
+task runAngular(type: NpmTask) {
+//    dependsOn(npm_install)
+    args = ['start'] // this run only local env
+}

@@ -1,0 +1,29 @@
+.song-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1060;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+  background: rgb(0 0 0 / 50%);
+}
+
+.song-modal {
+  width: min(100%, 760px);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+}
+
+.song-detail-lyrics {
+  max-height: 45vh;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.song-lyrics {
+  min-height: 180px;
+  resize: vertical;
+}

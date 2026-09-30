@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+if (file('libraries.gradle').exists())
+    apply from: 'libraries.gradle'
+
+java {
+    sourceCompatibility = '21'
+}
+
+allprojects {
+    group = 'com.selahpraise'
+    version = '0.0.2-SNAPSHOT'
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'io.spring.dependency-management'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:3.3.5")
+        }
+    }
+}
+
+
+def noBootJarModules = [':modules:entities', ':modules:db']
+
+configure(noBootJarModules.collect { project(it) }) {
+    plugins.withId("org.springframework.boot") {
+        tasks.named("bootJar").configure {
+            enabled = false
+        }
+    }
+
+    tasks.withType(Jar).configureEach {
+        enabled = true
+    }
+}

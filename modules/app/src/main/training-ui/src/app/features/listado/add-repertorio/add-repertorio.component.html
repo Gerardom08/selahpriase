@@ -1,0 +1,76 @@
+<div class="content__boxed">
+  <div class="content__wrap">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+          <div>
+            <h4 class="card-title mb-1">{{ 'Song.add' | i18n }}</h4>
+            <p class="text-muted mb-0">{{ 'Song.form.description' | i18n }}</p>
+          </div>
+          <button type="button" class="btn btn-outline-secondary" (click)="cancelar()">
+            {{ 'Song.cancel' | i18n }}
+          </button>
+        </div>
+
+        <form [formGroup]="cancionForm" (ngSubmit)="guardar()" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="titulo" class="form-label">{{ 'Titulo' | i18n }} <span class="text-danger">*</span></label>
+              <input id="titulo" type="text" class="form-control" formControlName="titulo" maxlength="100" required />
+              <small class="text-danger" *ngIf="cancionForm.get('titulo')?.touched && cancionForm.get('titulo')?.hasError('required')">
+                {{ 'Song.validation.title.required' | i18n }}
+              </small>
+              <small class="text-danger" *ngIf="cancionForm.get('titulo')?.touched && cancionForm.get('titulo')?.hasError('maxlength')">
+                {{ 'Song.validation.title.max' | i18n }}
+              </small>
+            </div>
+
+            <div class="col-md-6">
+              <label for="autor" class="form-label">{{ 'Autor' | i18n }}</label>
+              <input id="autor" type="text" class="form-control" formControlName="autor" maxlength="100" />
+              <small class="text-danger" *ngIf="cancionForm.get('autor')?.touched && cancionForm.get('autor')?.hasError('maxlength')">
+                {{ 'Song.validation.author.max' | i18n }}
+              </small>
+            </div>
+
+            <div class="col-md-6">
+              <label for="tono" class="form-label">{{ 'Tono' | i18n }}</label>
+              <input id="tono" type="text" class="form-control" formControlName="tono" maxlength="10" [placeholder]="'Song.key.placeholder' | i18n" />
+            </div>
+
+            <div class="col-md-6">
+              <label for="bpm" class="form-label">{{ 'Bpm' | i18n }}</label>
+              <input id="bpm" type="number" class="form-control" formControlName="bpm" min="1" max="500" [placeholder]="'Song.bpm.placeholder' | i18n" />
+              <small class="text-danger" *ngIf="cancionForm.get('bpm')?.touched && cancionForm.get('bpm')?.invalid">
+                {{ 'Song.validation.bpm' | i18n }}
+              </small>
+            </div>
+
+            <div class="col-12">
+              <label for="letraAcordes" class="form-label">{{ 'Song.lyrics' | i18n }}</label>
+              <textarea id="letraAcordes" class="form-control song-lyrics" formControlName="letraAcordes" rows="10" [placeholder]="'Song.lyrics.placeholder' | i18n"></textarea>
+            </div>
+
+            <div class="col-12">
+              <label for="youtubeUrl" class="form-label">{{ 'Youtube' | i18n }}</label>
+              <input id="youtubeUrl" type="url" class="form-control" formControlName="youtubeUrl" maxlength="255" [placeholder]="'Song.youtube.placeholder' | i18n" />
+              <small class="text-danger" *ngIf="cancionForm.get('youtubeUrl')?.touched && cancionForm.get('youtubeUrl')?.hasError('maxlength')">
+                {{ 'Song.validation.youtube.max' | i18n }}
+              </small>
+            </div>
+
+            <div class="col-12 d-flex justify-content-end gap-2 mt-4">
+              <button type="button" class="btn btn-outline-secondary" (click)="cancelar()" [disabled]="guardando">
+                {{ 'Song.cancel' | i18n }}
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="guardando">
+                <span *ngIf="guardando" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                {{ guardando ? ('Song.saving' | i18n) : ('Song.save' | i18n) }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

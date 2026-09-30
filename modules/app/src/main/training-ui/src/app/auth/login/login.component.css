@@ -1,0 +1,60 @@
+.card-title {
+    margin-bottom: 2rem;
+    font-weight: 300;
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.rounded-md {
+    border-radius: 0.375rem !important;
+}
+
+.form-login {
+    margin-top: 20px;
+}
+
+.form-label {
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #525b75;
+}
+
+.login {
+    width: 100%;
+    min-height: 100vh;
+    background: url(/assets/img/svg/pattern-1.svg) no-repeat center bottom fixed #45aefa;
+    background-size: cover;
+    display: flex;
+    align-items: center
+}
+
+.login .login-container {
+    flex: 1
+}
+
+
+.login .login-container .login-header {
+    max-width: 400px;
+    padding: 0;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    position: relative;
+    display: flex;
+    align-items: center
+}
+
+.login .login-container .login-body {
+    padding: 50px;
+    background: #fafafafa;
+}
+
+.login .login-container .login-body .login-content {
+    padding: 0;
+    max-width: 400px;
+    margin: 0 auto
+}

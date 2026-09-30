@@ -1,0 +1,94 @@
+SELAH PRAISE - Backend completo (MVP: 4 tablas)
+==================================================
+
+QUÉ ES ESTO
+-----------
+Es tu proyecto "training" completo, pero ya con:
+
+1. El paquete renombrado de com.yeisystems.training a
+   com.selahpraise.selahpraise en TODO el código (entities, db, restapi).
+2. La clase principal renombrada: TrainingApplication -> SelahPraiseApplication.
+3. application.properties y gateway-sqlserver.properties actualizados
+   (nombre de la app, context-path /selahpraise/v1, nombre de base de
+   datos "selahpraise").
+4. Los 44 archivos de las 4 tablas (11 por tabla, siguiendo el mismo
+   patrón hexagonal: Dto, Entity, Repository, BDGateway, Adapter, Mapper,
+   MapperImpl, Usecase, Interactor, Controller, ControllerImpl):
+      - USUARIOS
+      - CANCIONES
+      - REPERTORIOS
+      - DETALLE_REPERTORIO (tabla intermedia que ordena las canciones
+        de cada repertorio)
+5. GlobalConfiguration.java con los beans de las 4 tablas ya registrados.
+6. database/selahpraise_ddl.sql: script listo para SSMS que crea la
+   base de datos y las 4 tablas con sus llaves foráneas, más unos
+   datos de ejemplo para probar en Postman.
+
+CÓMO USARLO
+-----------
+Lo más simple: reemplaza tu carpeta de proyecto actual
+(C:\Users\gera7\OneDrive\Desktop\training) por el contenido de este
+zip, o ábrelo como un proyecto nuevo en IntelliJ (File -> Open ->
+selecciona la carpeta donde descomprimiste esto).
+
+Si prefieres seguir usando tu carpeta actual: cierra el proyecto en
+IntelliJ, borra todo dentro de "training" EXCEPTO ".git" si usas Git,
+y copia el contenido de este zip ahí. Vuelve a abrir en IntelliJ.
+
+PASOS PARA LEVANTARLO
+----------------------
+1. Abre SQL Server Management Studio (SSMS) y ejecuta
+   database/selahpraise_ddl.sql (crea la base "selahpraise" y las 4
+   tablas). Si tu SQL Server tiene otro usuario/password que no sea
+   sa/Passw0rd!, edita eso en:
+   modules/db/src/main/resources/gateway-sqlserver.properties
+
+2. En IntelliJ: botón de Gradle (elefante) -> Reload All Gradle Projects.
+
+3. Build -> Rebuild Project. Si marca error, mándame el mensaje exacto.
+
+4. Ejecuta SelahPraiseApplication (clic derecho -> Run), en
+   modules/restapi/src/main/java/com/selahpraise/selahpraise/.
+
+5. La API queda en http://localhost:9092/selahpraise/v1/api/...
+   Ejemplos:
+     GET  http://localhost:9092/selahpraise/v1/api/usuarios
+     GET  http://localhost:9092/selahpraise/v1/api/canciones
+     GET  http://localhost:9092/selahpraise/v1/api/repertorios
+     GET  http://localhost:9092/selahpraise/v1/api/detalle-repertorio/repertorio/1
+
+RUTAS DISPONIBLES POR TABLA
+-----------------------------
+USUARIOS            /api/usuarios
+  GET    /api/usuarios
+  GET    /api/usuarios/{idUsuario}
+  POST   /api/usuarios
+  PUT    /api/usuarios/{idUsuario}
+  DELETE /api/usuarios/{idUsuario}
+
+CANCIONES           /api/canciones
+  GET    /api/canciones
+  GET    /api/canciones/{idCancion}
+  GET    /api/canciones/buscar?titulo=texto
+  POST   /api/canciones
+  PUT    /api/canciones/{idCancion}
+  DELETE /api/canciones/{idCancion}
+
+REPERTORIOS         /api/repertorios
+  GET    /api/repertorios
+  GET    /api/repertorios/{idRepertorio}
+  GET    /api/repertorios/usuario/{idUsuario}
+  POST   /api/repertorios
+  PUT    /api/repertorios/{idRepertorio}
+  DELETE /api/repertorios/{idRepertorio}
+
+DETALLE_REPERTORIO  /api/detalle-repertorio
+  GET    /api/detalle-repertorio/repertorio/{idRepertorio}   (ordenado)
+  POST   /api/detalle-repertorio        (agregar canción a un repertorio)
+  PUT    /api/detalle-repertorio/{idDetalle}   (cambiar el orden)
+  DELETE /api/detalle-repertorio/{idDetalle}
+
+Con esto ya tienes el 100% del backend del MVP que describiste:
+usuarios, biblioteca de canciones, repertorios, y el detalle que
+ordena las canciones dentro de cada repertorio. Cuando compile y
+levante bien, seguimos con las pruebas en Postman.

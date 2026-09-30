@@ -1,0 +1,110 @@
+<header class="navbar pcoded-header navbar-expand-lg navbar-light header-blue">
+	<div class="m-header">
+		<a href="javascript:" class="mobile-menu" id="mobile-collapse" (click)="navCollapse()"><span></span></a>
+		<!-- <a class="b-brand">
+			<img id="main-logo" src="assets/images/logo.png" alt="" class="logo" />
+			<img src="assets/images/logo-icon.png" alt="" class="logo-thumb" />
+		</a> -->
+		<!-- TODO: <a class="mob-toggler" [class.on]="this.menuClass" href="javascript:" (click)="toggleMobOption()"><i
+                        class="feather icon-more-vertical"></i></a> -->
+	</div>
+	<div class="collapse navbar-collapse">
+		<!-- <ul class="navbar-nav me-auto">
+			<li class="nav-item">
+				<a class="pop-search"><i class="feather icon-search"></i></a>
+				<div class="search-bar">
+					<input type="text" class="form-control border-0 shadow-none" placeholder="Search hear">
+					<button type="button" class="close close btn-close position-absolute top-50 end-0 translate-middle"
+						aria-label="Close">
+					</button>
+				</div>
+			</li>
+		</ul> -->
+		<ul class="navbar-nav ms-auto">
+			<li class="nav-item d-flex justify-content-center align-items-end">
+				<h3>{{domainName}}</h3>
+			</li>
+		</ul>
+		<ul class="navbar-nav ms-auto">
+			<li>
+				&nbsp;&nbsp;
+			</li>
+			<li>
+				<div class="language-dropdown">
+					<a class="dropdown-toggle" href="#" role="button" id="languageDropdown" data-bs-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+						<img src="/assets/images/Empty.png" class="flag flag-{{currentLanguage.key}}"
+							alt="{{currentLanguage.alt}}">
+						&nbsp;
+						<span>{{currentLanguage.title}}</span>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-end" style="margin-right: 50px;"
+						aria-labelledby="languageDropdown">
+						<li [class.active]="language == currentLanguage" *ngFor="let language of languages"	(click)="setLanguage(language)">
+							<a>
+								<img src="/assets/images/Empty.png" class="flag flag-{{language.key}}"
+									alt="{{language.alt}}"> &nbsp;{{language.title}}
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+			<!-- <li>
+				<div class="dropdown">
+					<a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"><i
+							class="icon feather icon-bell"></i></a>
+					<div class="dropdown-menu dropdown-menu-end notification">
+						<div class="noti-head">
+							<h6 class="d-inline-block m-b-0">{{'Notifications' | i18n}}</h6>
+							<div class="float-end">
+								<a href="#!" class="m-r-10">mark as read</a>
+								<a href="#!">clear all</a>
+							</div>
+						</div>
+						<ul class="noti-body">
+							<li class="n-title">
+								<p class="m-b-0">EARLIER</p>
+							</li>
+							<li class="notification">
+								<div class="d-flex">
+									<img class="img-radius" src="assets/images/user/avatar-2.jpg"
+										alt="Generic placeholder image">
+									<div class="flex-grow-1">
+										<p><strong>Joseph William</strong><span class="n-time text-muted"><i
+													class="icon feather icon-clock m-r-10"></i>10 min</span></p>
+										<p>Prchace New Theme and make payment</p>
+									</div>
+								</div>
+							</li>
+							<li class="notification">
+								<div class="d-flex">
+									<img class="img-radius" src="assets/images/user/avatar-2.jpg"
+										alt="Generic placeholder image">
+									<div class="flex-grow-1">
+										<p><strong>Joseph William</strong><span class="n-time text-muted"><i
+													class="icon feather icon-clock m-r-10"></i>30 min</span></p>
+										<p>Prchace New Theme and make payment</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+						<div class="noti-footer">
+							<a href="#!">show all</a>
+						</div>
+					</div>
+				</div>
+			</li> -->
+			<li>
+				&nbsp;&nbsp;
+			</li>
+			<li>
+				<div class="dropdown drp-user">
+					<a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" (click)="showPopup()">
+						<i class="feather icon-power"></i>
+					</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</header>
+

@@ -1,0 +1,94 @@
+<div
+  *ngIf="visible"
+  class="song-modal-backdrop"
+  (click)="cerrar()">
+  <section
+    class="song-modal card"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="currentMode === 'create' ? ('Song.add' | i18n) : (currentMode === 'edit' ? ('Song.edit' | i18n) : cancion?.titulo)"
+    (click)="$event.stopPropagation()">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+        <div>
+          <h4 class="mb-1">
+            {{ currentMode === 'create' ? ('Song.add' | i18n) : (currentMode === 'edit' ? ('Song.edit' | i18n) : cancion?.titulo) }}
+          </h4>
+          <p class="text-muted mb-0" *ngIf="currentMode === 'create'">
+            {{ 'Song.form.description' | i18n }}
+          </p>
+          <p class="text-muted mb-0" *ngIf="currentMode === 'details'">
+            {{ 'Song.author' | i18n }}: {{ cancion?.autor }}
+          </p>
+        </div>
+        <button type="button" class="btn-close" [attr.aria-label]="'Close' | i18n" (click)="cerrar()"></button>
+      </div>
+
+      <ng-container *ngIf="currentMode === 'details'; else songForm">
+        <div class="song-detail-lyrics">{{ cancion?.letraAcordes }}</div>
+        <a
+          *ngIf="cancion?.youtubeUrl"
+          class="btn btn-outline-danger mt-3"
+          [href]="cancion!.youtubeUrl"
+          target="_blank"
+          rel="noopener noreferrer">
+          {{ 'Song.youtubeLink' | i18n }}
+        </a>
+        <p class="text-muted mt-3 mb-0" *ngIf="!cancion?.youtubeUrl">
+          {{ 'Song.noYoutube' | i18n }}
+        </p>
+        <div class="d-flex justify-content-end mt-4">
+          <button type="button" class="btn btn-primary" (click)="editarDesdeDetalle()">
+            {{ 'Edit' | i18n }}
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-template #songForm>
+        <form [formGroup]="cancionForm" (ngSubmit)="guardar()" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="modalTitulo" class="form-label">{{ 'Titulo' | i18n }} *</label>
+              <input id="modalTitulo" class="form-control" formControlName="titulo" maxlength="100" />
+              <small class="text-danger" *ngIf="cancionForm.get('titulo')?.touched && cancionForm.get('titulo')?.invalid">{{ 'Song.validation.title' | i18n }}</small>
+            </div>
+            <div class="col-md-6">
+              <label for="modalAutor" class="form-label">{{ 'Song.author' | i18n }}<span *ngIf="currentMode === 'edit'"> *</span></label>
+              <input id="modalAutor" class="form-control" formControlName="autor" maxlength="100" />
+              <small class="text-danger" *ngIf="cancionForm.get('autor')?.touched && cancionForm.get('autor')?.invalid">{{ 'Song.validation.author' | i18n }}</small>
+            </div>
+            <div class="col-md-6">
+              <label for="modalTono" class="form-label">{{ 'Tono' | i18n }}<span *ngIf="currentMode === 'edit'"> *</span></label>
+              <input id="modalTono" class="form-control" formControlName="tono" maxlength="10" [placeholder]="'Song.key.placeholder' | i18n" />
+              <small class="text-danger" *ngIf="cancionForm.get('tono')?.touched && cancionForm.get('tono')?.invalid">{{ 'Song.validation.key' | i18n }}</small>
+            </div>
+            <div class="col-md-6">
+              <label for="modalBpm" class="form-label">{{ 'Bpm' | i18n }}<span *ngIf="currentMode === 'edit'"> *</span></label>
+              <input id="modalBpm" type="number" class="form-control" formControlName="bpm" min="1" max="500" [placeholder]="'Song.bpm.placeholder' | i18n" />
+              <small class="text-danger" *ngIf="cancionForm.get('bpm')?.touched && cancionForm.get('bpm')?.invalid">{{ 'Song.validation.bpm' | i18n }}</small>
+            </div>
+            <div class="col-12">
+              <label for="modalLyrics" class="form-label">{{ 'Song.lyrics' | i18n }}<span *ngIf="currentMode === 'edit'"> *</span></label>
+              <textarea id="modalLyrics" class="form-control song-lyrics" formControlName="letraAcordes" rows="8" [placeholder]="'Song.lyrics.placeholder' | i18n"></textarea>
+              <small class="text-danger" *ngIf="cancionForm.get('letraAcordes')?.touched && cancionForm.get('letraAcordes')?.invalid">{{ 'Song.validation.lyrics' | i18n }}</small>
+            </div>
+            <div class="col-12">
+              <label for="modalYoutube" class="form-label">{{ 'Youtube' | i18n }}<span *ngIf="currentMode === 'edit'"> *</span></label>
+              <input id="modalYoutube" type="url" class="form-control" formControlName="youtubeUrl" maxlength="255" [placeholder]="'Song.youtube.placeholder' | i18n" />
+              <small class="text-danger" *ngIf="cancionForm.get('youtubeUrl')?.touched && cancionForm.get('youtubeUrl')?.invalid">{{ 'Song.validation.youtube' | i18n }}</small>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <button type="button" class="btn btn-outline-secondary" [disabled]="guardando" (click)="cerrar()">
+              {{ 'Song.cancel' | i18n }}
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="guardando">
+              {{ guardando ? ('Song.saving' | i18n) : ('Song.save' | i18n) }}
+            </button>
+          </div>
+        </form>
+      </ng-template>
+    </div>
+  </section>
+</div>
